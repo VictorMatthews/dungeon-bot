@@ -1,7 +1,7 @@
 {
-  "name": "discord-bot",
+  "name": "dungeon-bot",
   "version": "1.0.0",
-  "description": "Discord bot for Ohana",
+  "description": "Discord bot for Dungeons and Dragons",
   "main": "src/main.ts",
   "module": "es2020",
   "scripts": {
