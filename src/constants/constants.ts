@@ -3,6 +3,7 @@ export class Constants {
     public static CALLED_COMMAND = 'Called command: ';
     public static CLIENT = 'Client';
     public static CLOSE_PAR = ')';
+    public static CLOSE_TAG = '> ';
     public static CODE = '```';
     public static COMMAND_ERROR = 'there was an error trying to execute that command!';
     public static D10 = 'd10';
@@ -12,6 +13,8 @@ export class Constants {
     public static D4 = 'd4';
     public static D6 = 'd6';
     public static D8 = 'd8';
+    public static ENTER_A_DIE = 'Please enter a die to role. ';
+    public static EXAMPLE_DIE = 'Example ```roll d20```';
     public static HELP = 'help';
     public static HELP_DEF = 'This is a list of commands that can be used by this bot.';
     public static LINE_RETURN = '\n';
@@ -22,14 +25,11 @@ export class Constants {
     public static MESSAGE_SEND = 'Successfully sent message: ';
     public static OH_NO = 'Oh no! ';
     public static OPEN_PAR = '(';
+    public static OPEN_USER_TAG = '<@!';
     public static QUOTE = '"';
     public static READY = 'ready';
     public static ROLL = 'roll';
+    public static ROLLED = 'rolled: ';
     public static SPACE = ' ';
     public static TOKEN = 'Token';
-    public static ENTER_A_DIE = 'Please enter a die to role. ';
-    public static EXAMPLE_DIE = 'Example ```roll d20```';
-    public static OPEN_USER_TAG = '<@!';
-    public static CLOSE_TAG = '> ';
-    public static ROLLED = 'rolled: ';
 }

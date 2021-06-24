@@ -16,9 +16,7 @@ export class Roll extends Command {
             this.sendMessage(msg, Constants.ENTER_A_DIE + Constants.EXAMPLE_DIE);
         } else if (this.isValid(dice)) {
             const die = parseInt(dice.slice(1));
-            console.log('Rolling a d' + die);
             roll = Math.floor(Math.random() * (die - roll + 1)) + roll;
-            console.log('Rolled a ' + roll);
             this.sendMessage(msg, this.tagUser(msg.author.id) + Constants.ROLLED + roll);
         } else {
             this.sendMessage(msg, Constants.ENTER_A_DIE + 'I do not know what a "' + dice + '" die is.');
