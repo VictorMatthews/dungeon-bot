@@ -1,4 +1,5 @@
 import {Message} from "discord.js";
+import {Constants} from "../constants/constants";
 
 export abstract class Command {
     protected constructor(public name: string, public description: string) {
@@ -8,8 +9,12 @@ export abstract class Command {
 
     protected sendMessage(message: Message, text: string): void {
         message.channel.send(text).then(() => {
-            console.log('Successfully sent message: "' + text + '"');
+            console.log(Constants.MESSAGE_SEND + Constants.QUOTE + text + Constants.QUOTE);
         });
+    }
+
+    protected tagUser(userId: string): string {
+        return Constants.OPEN_USER_TAG + userId + Constants.CLOSE_TAG;
     }
 }
 

@@ -2,6 +2,7 @@ import {Client, Message} from "discord.js";
 import {inject, injectable} from "inversify";
 import {TYPES} from "./dependency-injection/types";
 import {CommandUtil} from "./command/command-util";
+import {Constants} from "./constants/constants";
 
 @injectable()
 export class Bot {
@@ -15,8 +16,8 @@ export class Bot {
     }
 
     public listen(): Promise<string> {
-        this.client.on('ready', () => this.onReady());
-        this.client.on('message', (message: Message) => this.onMessage(message));
+        this.client.on(Constants.READY, () => this.onReady());
+        this.client.on(Constants.MESSAGE, (message: Message) => this.onMessage(message));
         return this.client.login(this.token);
     }
 
@@ -24,20 +25,20 @@ export class Bot {
         if (message.author == this.client.user) {
             return;
         }
-        console.log('Message received! Contents: "' + message.content + '"');
+        console.log(Constants.MESSAGE_RECEIVED + Constants.QUOTE + message.content + Constants.QUOTE);
 
         const args = message.content.split(/ +/);
         let cmd = args.shift();
         if (cmd) {
             cmd = cmd.toLowerCase();
-            console.info(`Called command: ${cmd}`);
+            console.info(Constants.CALLED_COMMAND + cmd);
             const command = this.commands.get(cmd);
             if (command) {
                 try {
                     command.execute(message, args);
                 } catch (error) {
                     console.error(error);
-                    message.reply('there was an error trying to execute that command!').then();
+                    message.reply(Constants.COMMAND_ERROR).then();
                 }
             }
         }
@@ -47,7 +48,7 @@ export class Bot {
     private onReady(): void {
         const user = this.client.user;
         if (user) {
-            console.log("We have logged in as " + user.username + "#" + user.tag);
+            console.log(Constants.LOGGED_IN_AS + user.tag);
         }
     }
 }

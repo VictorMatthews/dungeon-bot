@@ -9,11 +9,12 @@ export class Help extends Command {
     }
 
     public execute(msg: Message, args: string[]): void {
-        let text = 'This is a list of commands that can be used by this bot.```\n';
+        let text = Constants.HELP_DEF + Constants.CODE + Constants.LINE_RETURN;
         CommandUtil.COMMANDS.forEach((command: Command) => {
-            text += command.name + ' (' + command.description + ')\n';
+            text += command.name + Constants.SPACE + Constants.OPEN_PAR
+                + command.description + Constants.CLOSE_PAR + Constants.LINE_RETURN;
         });
-        text += '```';
+        text += Constants.CODE;
         super.sendMessage(msg, text);
     }
 }

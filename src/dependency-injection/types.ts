@@ -1,5 +1,7 @@
+import {Constants} from "../constants/constants";
+
 export const TYPES = {
-    Bot: Symbol("Bot"),
-    Client: Symbol("Client"),
-    Token: Symbol("Token"),
+    Bot: Symbol(Constants.BOT),
+    Client: Symbol(Constants.CLIENT),
+    Token: Symbol(Constants.TOKEN),
 };
