@@ -4,9 +4,9 @@ export abstract class Command {
     protected constructor(public name: string, public description: string) {
     }
 
-    public abstract execute(msg: Message, args: string[]): void
+    public abstract execute(msg: Message, args: string[]): void;
 
-    protected sendMessage(message: Message, text: string) {
+    protected sendMessage(message: Message, text: string): void {
         message.channel.send(text).then(() => {
             console.log('Successfully sent message: "' + text + '"');
         });

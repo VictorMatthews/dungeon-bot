@@ -7,7 +7,7 @@ import {CommandUtil} from "./command/command-util";
 export class Bot {
     private client: Client;
     private readonly token: string;
-    commands = CommandUtil.COMMANDS
+    commands = CommandUtil.COMMANDS;
 
     constructor(@inject(TYPES.Client) client: Client, @inject(TYPES.Token) token: string) {
         this.client = client;
@@ -45,7 +45,7 @@ export class Bot {
     }
 
     private onReady(): void {
-        let user = this.client.user;
+        const user = this.client.user;
         if (user) {
             console.log("We have logged in as " + user.username + "#" + user.tag);
         }

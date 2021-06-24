@@ -4,7 +4,7 @@ import {TYPES} from "./types";
 import {Bot} from "../bot";
 import {Client} from "discord.js";
 
-let container = new Container();
+const container = new Container();
 
 container.bind<Bot>(TYPES.Bot).to(Bot).inSingletonScope();
 container.bind<Client>(TYPES.Client).toConstantValue(new Client());
