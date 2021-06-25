@@ -1,48 +1,37 @@
-import {Client, Message} from "discord.js";
+import {Client, Message, WSEventType} from "discord.js";
 import {inject, injectable} from "inversify";
 import {TYPES} from "./dependency-injection/types";
 import {CommandUtil} from "./command/command-util";
 import {Constants} from "./constants/constants";
+import axios, {AxiosRequestConfig} from "axios";
+import {Interaction} from "./constants/interfaces";
+import {CommandResponder} from "./command/command-responder";
+import {MessageResponder} from "./command/message-responder";
 
 @injectable()
 export class Bot {
-    private client: Client;
+    private readonly client: Client;
     private readonly token: string;
-    commands = CommandUtil.COMMANDS;
+    private commandResponder: CommandResponder;
+    private messageResponder: MessageResponder;
 
-    constructor(@inject(TYPES.Client) client: Client, @inject(TYPES.Token) token: string) {
+    constructor(@inject(TYPES.Client) client: Client,
+                @inject(TYPES.Token) token: string,
+                @inject(TYPES.CommandResponder) commandResponder: CommandResponder,
+                @inject(TYPES.MessageResponder) messageResponder: MessageResponder) {
         this.client = client;
         this.token = token;
+        this.commandResponder = commandResponder;
+        this.messageResponder = messageResponder;
     }
 
     public listen(): Promise<string> {
         this.client.on(Constants.READY, () => this.onReady());
         this.client.on(Constants.MESSAGE, (message: Message) => this.onMessage(message));
+        this.client.ws.on(('INTERACTION_CREATE' as WSEventType), async (interaction: Interaction) => {
+            this.onInteractionCreate(interaction);
+        });
         return this.client.login(this.token);
-    }
-
-    private onMessage(message: Message): void {
-        if (message.author == this.client.user) {
-            return;
-        }
-        console.log(Constants.MESSAGE_RECEIVED + Constants.QUOTE + message.content + Constants.QUOTE);
-
-        const args = message.content.split(/ +/);
-        let cmd = args.shift();
-        if (cmd) {
-            cmd = cmd.toLowerCase();
-            console.info(Constants.CALLED_COMMAND + cmd);
-            const command = this.commands.get(cmd);
-            if (command) {
-                try {
-                    command.execute(message, args);
-                } catch (error) {
-                    console.error(error);
-                    message.reply(Constants.COMMAND_ERROR).then();
-                }
-            }
-        }
-
     }
 
     private onReady(): void {
@@ -50,5 +39,13 @@ export class Bot {
         if (user) {
             console.log(Constants.LOGGED_IN_AS + user.tag);
         }
+    }
+
+    private onMessage(message: Message): void {
+        this.messageResponder.handle(message, this.client);
+    }
+
+    private onInteractionCreate(interaction: Interaction): void {
+        this.commandResponder.handle(interaction, this.client);
     }
 }

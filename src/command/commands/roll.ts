@@ -1,34 +1,23 @@
-import {Message} from "discord.js";
 import {Command} from "../command";
 import {Constants} from "../../constants/constants";
+import {CommandOption, Interaction} from "../../constants/interfaces";
 
 export class Roll extends Command {
-    validDice = [Constants.D4,Constants.D6,Constants.D8,Constants.D10,Constants.D12,Constants.D20,Constants.D100];
 
     constructor() {
         super(Constants.ROLL, 'Returns a dice roll based on the dice entered. ' + Constants.EXAMPLE_DIE);
     }
 
-    public execute(msg: Message, args: string[]): void {
+    execute(interaction: Interaction, callback: (response: string) => void): void {
         let roll = 1;
-        const dice = args.shift();
-        if (!dice) {
-            this.sendMessage(msg, Constants.ENTER_A_DIE + Constants.EXAMPLE_DIE);
-        } else if (this.isValid(dice)) {
-            const die = parseInt(dice.slice(1));
-            roll = Math.floor(Math.random() * (die - roll + 1)) + roll;
-            this.sendMessage(msg, this.tagUser(msg.author.id) + Constants.ROLLED + roll);
-        } else {
-            this.sendMessage(msg, Constants.ENTER_A_DIE + 'I do not know what a "' + dice + '" die is.');
-        }
-    }
-
-    private isValid(dice: string): boolean {
-        for (let i = 0; i < this.validDice.length; i++) {
-            if (dice === this.validDice[i]) {
-                return true;
+        interaction.data.options.forEach((option: CommandOption) => {
+            if (option.name === 'die') {
+                const die = parseInt(option.value.slice(1));
+                roll = Math.floor(Math.random() * (die - roll + 1)) + roll;
+                const msg = this.tagUser(interaction.member.user.id) + Constants.ROLLED + roll
+                    + Constants.SPACE + Constants.FROM_A + option.value;
+                callback(msg);
             }
-        }
-        return false;
+        });
     }
 }

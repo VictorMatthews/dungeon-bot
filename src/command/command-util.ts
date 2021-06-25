@@ -1,13 +1,15 @@
 import {Command} from "./command";
-import {Help} from "./commands/help";
 import {Roll} from "./commands/roll";
 
 export class CommandUtil {
-    private static HELP = new Help();
     private static ROLL = new Roll();
 
-    public static COMMANDS: Map<string, Command> = new Map([
-        [CommandUtil.HELP.name, CommandUtil.HELP],
+    private static COMMANDS: Map<string, Command> = new Map([
         [CommandUtil.ROLL.name, CommandUtil.ROLL],
     ]);
+
+    static getCommandHandler(name: string): Command {
+        const command = CommandUtil.COMMANDS.get(name);
+        return command as Command;
+    }
 }
