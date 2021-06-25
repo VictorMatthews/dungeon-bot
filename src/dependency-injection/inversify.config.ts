@@ -13,7 +13,6 @@ container.bind<CommandResponder>(TYPES.CommandResponder).to(CommandResponder).in
 container.bind<MessageResponder>(TYPES.MessageResponder).to(MessageResponder).inSingletonScope();
 container.bind<Client>(TYPES.Client).toConstantValue(new Client());
 container.bind<string>(TYPES.Token).toConstantValue(process.env.TOKEN as string);
-container.bind<string>(TYPES.AppId).toConstantValue(process.env.APP_ID as string);
 container.bind<string>(TYPES.GuildId).toConstantValue(process.env.GUILD_ID as string);
 
 export default container;

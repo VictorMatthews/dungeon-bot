@@ -2,6 +2,7 @@ import {inject, injectable} from "inversify";
 import {Constants} from "../constants/constants";
 import {Message} from "discord.js";
 import {TYPES} from "../dependency-injection/types";
+import {CommandUtil} from "./command-util";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 @injectable()
@@ -33,10 +34,12 @@ export class MessageResponder {
     }
 
     private postSlashCommands(client: any): void {
-        client.api.applications(client.user.id).guilds(this.guildId)
-            .commands.post({ data: Constants.SLASH_COMMANDS }).then((res: any) => {
-                console.log(res);
-            });
+        CommandUtil.SLASH_COMMANDS.forEach(body => {
+            client.api.applications(client.user.id).guilds(this.guildId)
+                .commands.post({ data: body }).then((res: any) => {
+                    console.log(res);
+                });
+        });
     }
 
     private deleteSlashCommands(client: any): void {

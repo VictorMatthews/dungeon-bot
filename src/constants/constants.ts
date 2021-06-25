@@ -1,5 +1,4 @@
 export class Constants {
-    public static APP_ID = 'AppId';
     public static BOT = 'Bot';
     public static CLIENT = 'Client';
     public static CLOSE_TAG = '> ';
@@ -30,26 +29,4 @@ export class Constants {
     public static ROLLED = 'rolled: ';
     public static SPACE = ' ';
     public static TOKEN = 'Token';
-
-    public static SLASH_COMMANDS = {
-        name: Constants.ROLL,
-        description: "Returns a dice roll based on the die entered.",
-        options: [
-            {
-                name: "die",
-                description: "The type of die",
-                type: 3,
-                required: true,
-                choices: [
-                    { name: "D4", value: Constants.D4 },
-                    { name: "D6", value: Constants.D6 },
-                    { name: "D8", value: Constants.D8 },
-                    { name: "D10", value: Constants.D10 },
-                    { name: "D12", value: Constants.D12 },
-                    { name: "D20", value: Constants.D20 },
-                    { name: "D100", value: Constants.D100 }
-                ]
-            }
-        ]
-    };
 }

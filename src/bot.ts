@@ -1,9 +1,7 @@
 import {Client, Message, WSEventType} from "discord.js";
 import {inject, injectable} from "inversify";
 import {TYPES} from "./dependency-injection/types";
-import {CommandUtil} from "./command/command-util";
 import {Constants} from "./constants/constants";
-import axios, {AxiosRequestConfig} from "axios";
 import {Interaction} from "./constants/interfaces";
 import {CommandResponder} from "./command/command-responder";
 import {MessageResponder} from "./command/message-responder";
