@@ -28,6 +28,12 @@ export class CommandUtil {
                         { name: 'D20', value: Constants.D20 },
                         { name: 'D100', value: Constants.D100 }
                     ]
+                },
+                {
+                    name: Constants.ROLLS,
+                    description: Constants.ROLLS_DESC,
+                    type: 3,
+                    required: false
                 }
             ]
         }

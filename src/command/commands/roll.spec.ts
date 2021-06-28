@@ -16,6 +16,7 @@ describe('Roll', () => {
         const r = response.slice(prefixEnd, rollEnd).trim();
         rollResponse.roll = parseInt(r);
         rollResponse.suffix = response.slice(rollEnd);
+        rollResponse.response = response;
     };
 
     const verifyPrefix = (): void => {
@@ -36,7 +37,10 @@ describe('Roll', () => {
 
     beforeEach(() => {
         roll = new Roll();
-        interaction = INTERACTION;
+        interaction = {
+            data: { options: [ { value: '', type: 3, name: Constants.DIE } ] },
+            member: { user: { id: '123456789' } }
+        } as Interaction;
     });
 
     it('should be valid', async () => {
@@ -106,27 +110,56 @@ describe('Roll', () => {
         verifySuffix(Constants.D100);
         verifyRoll(100);
     });
-});
 
-const INTERACTION = {
-    data: {
-        options: [
-            {
-                value: '',
-                type: 3,
-                name: Constants.DIE
-            }
-        ]
-    },
-    member: {
-        user: {
-            id: '123456789'
+    it('should return error when no options are passed in', async () => {
+        interaction.data.options = [];
+        roll.execute(interaction, callback);
+        expect(rollResponse).to.exist;
+        expect(rollResponse.response).to.equal(Constants.OPEN_USER_TAG + interaction.member.user.id
+            + Constants.CLOSE_TAG + Constants.LINE_RETURN + Constants.ERROR_PROCESSING_COMMAND);
+    });
+
+    it('should return error when rolls option passed in isNaN', async () => {
+        interaction.data.options[0].value = Constants.D100;
+        interaction.data.options.push({
+            value: 'five',
+            type: 3,
+            name: Constants.ROLLS
+        });
+        roll.execute(interaction, callback);
+        expect(rollResponse).to.exist;
+        expect(rollResponse.response).to.equal(Constants.OPEN_USER_TAG + interaction.member.user.id
+            + Constants.CLOSE_TAG + Constants.LINE_RETURN + Constants.ERROR_PROCESSING_COMMAND);
+    });
+
+    it('should return multiple roll result when passing in rolls option', async () => {
+        interaction.data.options[0].value = Constants.D8;
+        interaction.data.options.push({
+            value: '10',
+            type: 3,
+            name: Constants.ROLLS
+        });
+
+        // eslint-disable-next-line no-useless-escape
+        let res = '\<\@\!' + interaction.member.user.id + '\> ';
+        for (let i = 1; i <= 10; i++) {
+            res += '\\n' + i + Constants.SPACE + Constants.ROLLED
+                + '([1-8])' + Constants.SPACE + Constants.FROM_A + Constants.D8;
         }
-    }
-} as Interaction;
+        res += '\\n' + Constants.AVG_ROLL + Constants.D8
+            + Constants.SPACE + Constants.IS + Constants.SPACE + '([1-8])';
+
+        const regExp = new RegExp(res);
+
+        roll.execute(interaction, callback);
+        expect(rollResponse).to.exist;
+        expect(rollResponse.response).to.match(regExp);
+    });
+});
 
 interface RollResponse {
     prefix: string
     roll: number
     suffix: string
+    response: string
 }
