@@ -3,30 +3,30 @@ import {Roll} from "./commands/roll";
 import {Constants} from "../constants/constants";
 
 export class CommandUtil {
-    private static ROLL = new Roll();
+    private static readonly ROLL = new Roll();
 
-    private static COMMANDS: Map<string, Command> = new Map([
+    private static readonly COMMANDS: Map<string, Command> = new Map([
         [CommandUtil.ROLL.name, CommandUtil.ROLL],
     ]);
 
-    public static SLASH_COMMANDS = [
+    public static readonly SLASH_COMMANDS = [
         {
             name: CommandUtil.ROLL.name,
             description: CommandUtil.ROLL.description,
             options: [
                 {
-                    name: "die",
-                    description: "The type of die",
+                    name: Constants.DIE,
+                    description: Constants.DIE_DESC,
                     type: 3,
                     required: true,
                     choices: [
-                        { name: "D4", value: Constants.D4 },
-                        { name: "D6", value: Constants.D6 },
-                        { name: "D8", value: Constants.D8 },
-                        { name: "D10", value: Constants.D10 },
-                        { name: "D12", value: Constants.D12 },
-                        { name: "D20", value: Constants.D20 },
-                        { name: "D100", value: Constants.D100 }
+                        { name: 'D4', value: Constants.D4 },
+                        { name: 'D6', value: Constants.D6 },
+                        { name: 'D8', value: Constants.D8 },
+                        { name: 'D10', value: Constants.D10 },
+                        { name: 'D12', value: Constants.D12 },
+                        { name: 'D20', value: Constants.D20 },
+                        { name: 'D100', value: Constants.D100 }
                     ]
                 }
             ]

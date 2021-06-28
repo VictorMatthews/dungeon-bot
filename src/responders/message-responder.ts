@@ -1,8 +1,9 @@
+import "reflect-metadata";
 import {inject, injectable} from "inversify";
 import {Constants} from "../constants/constants";
 import {Message} from "discord.js";
 import {TYPES} from "../dependency-injection/types";
-import {CommandUtil} from "./command-util";
+import {CommandUtil} from "../command/command-util";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 @injectable()

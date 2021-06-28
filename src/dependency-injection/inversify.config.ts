@@ -3,8 +3,8 @@ import {Container} from "inversify";
 import {TYPES} from "./types";
 import {Bot} from "../bot";
 import {Client} from "discord.js";
-import {CommandResponder} from "../command/command-responder";
-import {MessageResponder} from "../command/message-responder";
+import {CommandResponder} from "../responders/command-responder";
+import {MessageResponder} from "../responders/message-responder";
 
 const container = new Container();
 

@@ -15,7 +15,9 @@
     "sourceMap": true,
     "types": [
       // add node as an option
+      "chai",
       "node",
+      "mocha",
       "reflect-metadata"
     ],
     "typeRoots": [

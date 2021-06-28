@@ -1,6 +1,6 @@
 import {injectable} from "inversify";
 import {Interaction} from "../constants/interfaces";
-import {CommandUtil} from "./command-util";
+import {CommandUtil} from "../command/command-util";
 
 @injectable()
 export class CommandResponder {
@@ -18,7 +18,6 @@ export class CommandResponder {
                 client.api.interactions(interaction.id, interaction.token).callback.post({ data: data });
             };
 
-            // Todo Handle Command
             const commandHandler = CommandUtil.getCommandHandler(interaction.data.name);
             if (commandHandler) {
                 commandHandler.execute(interaction, callback);

@@ -1,10 +1,11 @@
+import "reflect-metadata";
 import {Client, Message, WSEventType} from "discord.js";
 import {inject, injectable} from "inversify";
 import {TYPES} from "./dependency-injection/types";
 import {Constants} from "./constants/constants";
 import {Interaction} from "./constants/interfaces";
-import {CommandResponder} from "./command/command-responder";
-import {MessageResponder} from "./command/message-responder";
+import {CommandResponder} from "./responders/command-responder";
+import {MessageResponder} from "./responders/message-responder";
 
 @injectable()
 export class Bot {
@@ -26,7 +27,7 @@ export class Bot {
     public listen(): Promise<string> {
         this.client.on(Constants.READY, () => this.onReady());
         this.client.on(Constants.MESSAGE, (message: Message) => this.onMessage(message));
-        this.client.ws.on(('INTERACTION_CREATE' as WSEventType), async (interaction: Interaction) => {
+        this.client.ws.on((Constants.INTERACTION_CREATE as WSEventType), async (interaction: Interaction) => {
             this.onInteractionCreate(interaction);
         });
         return this.client.login(this.token);

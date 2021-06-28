@@ -12,12 +12,15 @@ export class Constants {
     public static D6 = 'd6';
     public static D8 = 'd8';
     public static DELETE = 'delete';
-    public static EXAMPLE_DIE = 'Example ```roll d20```';
+    public static DIE = 'die';
+    public static DIE_DESC = 'The type of die';
+    public static EXAMPLE_DIE = 'Example ```/roll D20```';
     public static FROM_A = 'from a ';
     public static GUILD_ID = 'GuildId';
     public static LISTENING = 'Listening to request';
     public static LOGGED_IN_AS = 'We have logged in as ';
     public static MESSAGE = 'message';
+    public static INTERACTION_CREATE = 'INTERACTION_CREATE';
     public static MESSAGE_RECEIVED = 'Message received! Contents: ';
     public static MESSAGE_RESPONDER = 'MessageResponder';
     public static OH_NO = 'Oh no! ';
@@ -27,6 +30,7 @@ export class Constants {
     public static READY = 'ready';
     public static ROLL = 'roll';
     public static ROLLED = 'rolled: ';
+    public static ROLL_DESC = 'Returns a dice roll based on the dice entered. ';
     public static SPACE = ' ';
     public static TOKEN = 'Token';
 }

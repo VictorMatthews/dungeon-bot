@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Discord bot for Dungeons and Dragons",
   "main": "src/main.ts",
-  "module": "es2020",
+  "module": "commonjs",
   "scripts": {
     "start": "node dist/main.js",
     "build": "npx tsc",
     "clean": "rmdir /Q /S dist",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register/index.js 'src/**/*.spec.ts'"
   },
   "author": "Victor Matthews",
   "dependencies": {
