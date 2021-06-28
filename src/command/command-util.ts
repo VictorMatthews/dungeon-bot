@@ -32,7 +32,7 @@ export class CommandUtil {
                 {
                     name: Constants.ROLLS,
                     description: Constants.ROLLS_DESC,
-                    type: 3,
+                    type: 4,
                     required: false
                 }
             ]

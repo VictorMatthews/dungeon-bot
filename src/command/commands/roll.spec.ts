@@ -132,11 +132,24 @@ describe('Roll', () => {
             + Constants.CLOSE_TAG + Constants.LINE_RETURN + Constants.ERROR_PROCESSING_COMMAND);
     });
 
+    it('should return error when rolls option exceeds 25', async () => {
+        interaction.data.options[0].value = Constants.D100;
+        interaction.data.options.push({
+            value: 26,
+            type: 4,
+            name: Constants.ROLLS
+        });
+        roll.execute(interaction, callback);
+        expect(rollResponse).to.exist;
+        expect(rollResponse.response).to.equal(Constants.OPEN_USER_TAG + interaction.member.user.id
+            + Constants.CLOSE_TAG + Constants.LINE_RETURN + Constants.CANNOT_ROLL_EXCEEDED_AMOUNT);
+    });
+
     it('should return multiple roll result when passing in rolls option', async () => {
         interaction.data.options[0].value = Constants.D8;
         interaction.data.options.push({
-            value: '10',
-            type: 3,
+            value: 10,
+            type: 4,
             name: Constants.ROLLS
         });
 

@@ -24,7 +24,9 @@ export class Roll extends Command {
         });
 
         if (die && !Number.isNaN(numOfRolls)) {
-            if (numOfRolls > 1) {
+            if (numOfRolls > 25) {
+                msg += Constants.LINE_RETURN + Constants.CANNOT_ROLL_EXCEEDED_AMOUNT;
+            } else if (numOfRolls > 1) {
                 let sum = 0;
                 for (let i = 1; i <= numOfRolls; i++) {
                     roll = this.roll(die);

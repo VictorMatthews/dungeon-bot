@@ -1,5 +1,7 @@
 export class Constants {
+    public static AVG_ROLL = 'The average roll from your ';
     public static BOT = 'Bot';
+    public static CANNOT_ROLL_EXCEEDED_AMOUNT = 'You cannot roll more than 25 rolls at a time';
     public static CLIENT = 'Client';
     public static CLOSE_TAG = '> ';
     public static COMMAND = 'command';
@@ -19,6 +21,8 @@ export class Constants {
     public static FROM_A = 'from a ';
     public static GUILD_ID = 'GuildId';
     public static INTERACTION_CREATE = 'INTERACTION_CREATE';
+    public static IS = 'is';
+    public static LINE_RETURN = '\n';
     public static LISTENING = 'Listening to request';
     public static LOGGED_IN_AS = 'We have logged in as ';
     public static MESSAGE = 'message';
@@ -32,11 +36,8 @@ export class Constants {
     public static ROLL = 'roll';
     public static ROLLED = 'rolled: ';
     public static ROLLS = 'rolls';
-    public static ROLL_DESC = 'Returns a dice roll based on the dice entered. ';
     public static ROLLS_DESC = 'Amount of times to roll the die printing each roll';
+    public static ROLL_DESC = 'Returns a dice roll based on the dice entered. ';
     public static SPACE = ' ';
     public static TOKEN = 'Token';
-    public static LINE_RETURN = '\n';
-    public static AVG_ROLL = 'The average roll from your ';
-    public static IS = 'is';
 }

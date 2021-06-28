@@ -4,31 +4,12 @@ export interface Interaction {
     version: number
     type: number
     token: string
-    member: Member
+    member: GuildMember
     id: string
     guild_id: string
     data: InteractionData
     channel_id: string
     application_id: string
-}
-
-export interface Member {
-    user: User
-    roles: string[]
-    permissions: string
-    pending: boolean
-    nick: string
-    mute: boolean
-    is_pending: boolean
-    deaf: boolean
-}
-
-export interface User {
-    username: string
-    public_flags: number
-    id: string
-    discriminator: string
-    avatar: string
 }
 
 export interface InteractionData {
@@ -38,7 +19,8 @@ export interface InteractionData {
 }
 
 export interface CommandOption {
-    value: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value: any
     type: number
     name: string
 }
