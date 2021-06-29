@@ -1,5 +1,4 @@
 export class Constants {
-    public static AVG_ROLL = 'The average roll from your ';
     public static BOT = 'Bot';
     public static CANNOT_ROLL_EXCEEDED_AMOUNT = 'You cannot roll more than 25 rolls at a time';
     public static CLIENT = 'Client';
@@ -37,7 +36,9 @@ export class Constants {
     public static ROLLED = 'rolled: ';
     public static ROLLS = 'rolls';
     public static ROLLS_DESC = 'Amount of times to roll the die printing each roll';
+    public static ROLL_AVG = 'The average roll from your ';
     public static ROLL_DESC = 'Returns a dice roll based on the dice entered. ';
+    public static ROLL_SUM = 'The sum of your ';
     public static SPACE = ' ';
     public static TOKEN = 'Token';
 }

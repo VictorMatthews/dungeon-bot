@@ -159,8 +159,10 @@ describe('Roll', () => {
             res += '\\n' + i + Constants.SPACE + Constants.ROLLED
                 + '([1-8])' + Constants.SPACE + Constants.FROM_A + Constants.D8;
         }
-        res += '\\n' + Constants.AVG_ROLL + Constants.D8
-            + Constants.SPACE + Constants.IS + Constants.SPACE + '([1-8])';
+        res += '\\n' + Constants.ROLL_AVG + Constants.D8
+            + Constants.SPACE + Constants.IS + Constants.SPACE + '([1-8])'
+            + '\\n' + Constants.ROLL_SUM + Constants.D8 + Constants.SPACE
+            + Constants.ROLLS + Constants.SPACE + Constants.IS + Constants.SPACE + '([1-8])([0-9])';
 
         const regExp = new RegExp(res);
 

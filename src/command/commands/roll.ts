@@ -34,8 +34,10 @@ export class Roll extends Command {
                     msg += Constants.LINE_RETURN + i + Constants.SPACE + Constants.ROLLED
                         + roll + Constants.SPACE + Constants.FROM_A + dieType;
                 }
-                msg += Constants.LINE_RETURN + Constants.AVG_ROLL + dieType
-                    + Constants.SPACE + Constants.IS + Constants.SPACE + Math.round(sum / numOfRolls);
+                msg += Constants.LINE_RETURN + Constants.ROLL_AVG + dieType
+                    + Constants.SPACE + Constants.IS + Constants.SPACE + Math.round(sum / numOfRolls)
+                    + Constants.LINE_RETURN + Constants.ROLL_SUM + dieType + Constants.SPACE
+                    + Constants.ROLLS + Constants.SPACE + Constants.IS + Constants.SPACE + sum;
             } else {
                 roll = this.roll(die);
                 msg += Constants.ROLLED + roll + Constants.SPACE + Constants.FROM_A + dieType;
