@@ -156,19 +156,49 @@ describe('Roll', () => {
         // eslint-disable-next-line no-useless-escape
         let res = '\<\@\!' + interaction.member.user.id + '\> ';
         for (let i = 1; i <= 10; i++) {
-            res += '\\n' + i + Constants.SPACE + Constants.ROLLED
-                + '([1-8])' + Constants.SPACE + Constants.FROM_A + Constants.D8;
+            res += '\\n' + roll.multiLineRoll(i, '([1-8])', Constants.D8);
         }
-        res += '\\n' + Constants.ROLL_AVG + Constants.D8
-            + Constants.SPACE + Constants.IS + Constants.SPACE + '([1-8])'
-            + '\\n' + Constants.ROLL_SUM + Constants.D8 + Constants.SPACE
-            + Constants.ROLLS + Constants.SPACE + Constants.IS + Constants.SPACE + '([1-8])([0-9])';
+        res += '\\n' + roll.rollAvg(Constants.D8, '([1-8])')
+            + '\\n' + roll.rollSum(Constants.D8, '([1-8])([0-9])');
 
         const regExp = new RegExp(res);
 
         roll.execute(interaction, callback);
         expect(rollResponse).to.exist;
         expect(rollResponse.response).to.match(regExp);
+    });
+
+    it('should return a line roll message', async () => {
+        const rollVal = 20;
+        const dieType = 'd20';
+        const lineRoll = Constants.ROLLED + rollVal + Constants.SPACE + Constants.FROM_A + dieType;
+        expect(roll.lineRoll(rollVal, dieType)).to.equal(lineRoll);
+    });
+
+    it('should return a multi line roll message', async () => {
+        const nthRoll = 1;
+        const rollVal = '20';
+        const dieType = 'd20';
+        const lineRoll = nthRoll + Constants.SPACE + Constants.ROLLED
+            + rollVal + Constants.SPACE + Constants.FROM_A + dieType;
+        expect(roll.multiLineRoll(nthRoll, rollVal, dieType)).to.equal(lineRoll);
+    });
+
+    it('should return a roll average message', async () => {
+        const dieType = 'd20';
+        const sum = 40;
+        const numOfRolls = 2;
+        const lineRoll = Constants.ROLL_AVG + dieType
+            + Constants.SPACE + Constants.IS + Constants.SPACE + Math.round(sum / numOfRolls);
+        expect(roll.rollAvg(dieType, Math.round(sum / numOfRolls).toString())).to.equal(lineRoll);
+    });
+
+    it('should return a roll sum message', async () => {
+        const sum = 40;
+        const dieType = 'd20';
+        const lineRoll = Constants.ROLL_SUM + dieType + Constants.SPACE
+            + Constants.ROLLS + Constants.SPACE + Constants.IS + Constants.SPACE + sum;
+        expect(roll.rollSum(dieType, sum.toString())).to.equal(lineRoll);
     });
 });
 

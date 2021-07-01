@@ -14,6 +14,8 @@ export class Roll extends Command {
         let dieType = '';
         let numOfRolls = 1;
         let msg = this.tagUser(interaction.member.user.id);
+
+        // Load data from command input
         interaction.data.options.forEach((option: CommandOption) => {
             if (option.name === Constants.DIE) {
                 die = parseInt(option.value.slice(1));
@@ -23,6 +25,7 @@ export class Roll extends Command {
             }
         });
 
+        // Create return message
         if (die && !Number.isNaN(numOfRolls)) {
             if (numOfRolls > 25) {
                 msg += Constants.LINE_RETURN + Constants.CANNOT_ROLL_EXCEEDED_AMOUNT;
@@ -31,24 +34,41 @@ export class Roll extends Command {
                 for (let i = 1; i <= numOfRolls; i++) {
                     roll = this.roll(die);
                     sum += roll;
-                    msg += Constants.LINE_RETURN + i + Constants.SPACE + Constants.ROLLED
-                        + roll + Constants.SPACE + Constants.FROM_A + dieType;
+                    msg += Constants.LINE_RETURN + this.multiLineRoll(i, roll.toString(), dieType);
                 }
-                msg += Constants.LINE_RETURN + Constants.ROLL_AVG + dieType
-                    + Constants.SPACE + Constants.IS + Constants.SPACE + Math.round(sum / numOfRolls)
-                    + Constants.LINE_RETURN + Constants.ROLL_SUM + dieType + Constants.SPACE
-                    + Constants.ROLLS + Constants.SPACE + Constants.IS + Constants.SPACE + sum;
+                msg += Constants.LINE_RETURN + this.rollAvg(dieType, Math.round(sum / numOfRolls).toString())
+                    + Constants.LINE_RETURN + this.rollSum(dieType, sum.toString());
             } else {
                 roll = this.roll(die);
-                msg += Constants.ROLLED + roll + Constants.SPACE + Constants.FROM_A + dieType;
+                msg += this.lineRoll(roll, dieType);
             }
         } else {
             msg += Constants.LINE_RETURN + Constants.ERROR_PROCESSING_COMMAND;
         }
+
         callback(msg);
     }
 
-    private roll(die: number): number {
+    public roll(die: number): number {
         return Math.floor(Math.random() * die) + 1;
+    }
+
+    public lineRoll(roll: number, dieType: string): string {
+        return Constants.ROLLED + roll + Constants.SPACE + Constants.FROM_A + dieType;
+    }
+
+    public multiLineRoll(nthRoll: number, roll: string, dieType: string): string {
+        return nthRoll + Constants.SPACE + Constants.ROLLED
+        + roll + Constants.SPACE + Constants.FROM_A + dieType;
+    }
+
+    public rollAvg(dieType: string, avg: string): string {
+        return Constants.ROLL_AVG + dieType
+            + Constants.SPACE + Constants.IS + Constants.SPACE + avg;
+    }
+
+    public rollSum(dieType: string, sum: string): string {
+        return Constants.ROLL_SUM + dieType + Constants.SPACE
+            + Constants.ROLLS + Constants.SPACE + Constants.IS + Constants.SPACE + sum;
     }
 }
